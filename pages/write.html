@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/write.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <h4>Todo App</h4>
+      <ul>
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="write.html">Write</a></li>
+        <li><a href="#">Temp</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="write-container">
+        <div class="task-input-field">
+          <label for="task">Task</label>
+          <input
+            required
+            type="text"
+            placeholder=""
+            name="task"
+            id="task"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="task-input-field">
+          <label for="due">Due Date</label>
+          <input
+            required
+            type="text"
+            placeholder=""
+            name="due"
+            id="due"
+            autocomplete="off"
+          />
+        </div>
+
+        <button>Submit</button>
+      </div>
+    </div>
+  </body>
+</html>

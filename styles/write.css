@@ -1,0 +1,36 @@
+/* ----------------------------- */
+
+.write-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.task-input-field {
+  width: 100%;
+
+  margin-top: 20px;
+}
+
+.task-input-field label {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.task-input-field input {
+  border: 1px solid #424242;
+  width: 100%;
+  padding: 6px;
+  margin-top: 10px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.write-container button {
+  background-color: #0e1a58;
+  color: #fff;
+  float: right;
+  margin-top: 20px;
+  padding: 6px 14px;
+  border-radius: 5px;
+}
