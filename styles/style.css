@@ -63,6 +63,10 @@ li {
   border-bottom: 1px solid #fff;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 /* ----------------------------- */
 
 .container {

@@ -19,14 +19,14 @@
     </nav>
 
     <div class="container">
-      <div class="write-container">
+      <form class="write-form" action="/add" method="POST">
         <div class="task-input-field">
           <label for="task">Task</label>
           <input
             required
             type="text"
             placeholder=""
-            name="task"
+            name="taskName"
             id="task"
             autocomplete="off"
           />
@@ -38,14 +38,14 @@
             required
             type="text"
             placeholder=""
-            name="due"
+            name="taskDue"
             id="due"
             autocomplete="off"
           />
         </div>
 
-        <button>Submit</button>
-      </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   </body>
 </html>
