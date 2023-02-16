@@ -3,9 +3,17 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(8080, function () {
-  console.log('listening on 8080');
-});
+const MongoClient = require('mongodb').MongoClient;
+
+MongoClient.connect(
+  'mongodb+srv://admin:password1234@cluster0.iv5k38x.mongodb.net/?retryWrites=true&w=majority',
+  function (error, client) {
+    if (error) return console.log(error);
+    app.listen(8080, function () {
+      console.log('listening on 8080');
+    });
+  }
+);
 
 app.use(express.static(__dirname));
 
