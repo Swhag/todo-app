@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const MongoClient = require('mongodb').MongoClient;
+app.set('view engine', 'ejs');
 
 var db;
 MongoClient.connect(
@@ -19,9 +20,11 @@ MongoClient.connect(
   }
 );
 
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
+// -----------------------------------------
 
 app.get('/', function (req, res) {
+  console.log('Handling GET request to /');
   res.set('Content-Type', 'text/html');
   res.sendFile(__dirname + '/index.html');
 });
@@ -31,10 +34,19 @@ app.get('/styles/style.css', function (req, res) {
   res.sendFile(__dirname + '/styles/style.css');
 });
 
-app.get('/pages', function (req, res) {
+// -----------------------------------------
+
+app.get('/write', function (req, res) {
   res.set('Content-Type', 'text/html');
   res.sendFile(__dirname + '/pages/write.html');
 });
+
+app.get('/styles/write.css', function (req, res) {
+  res.set('Content-Type', 'text/css');
+  res.sendFile(__dirname + '/styles/write.css');
+});
+
+// -----------------------------------------
 
 app.post('/add', function (req, res) {
   res.send('Data submitted');
@@ -47,4 +59,13 @@ app.post('/add', function (req, res) {
       console.log('data saved');
     }
   );
+});
+
+app.get('/views', function (req, res) {
+  db.collection('post')
+    .find()
+    .toArray(function (error, res) {
+      console.log(res);
+    });
+  res.render(__dirname + '/views/list.ejs', { posts: res });
 });
