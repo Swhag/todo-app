@@ -31,10 +31,14 @@
 .task-list-item button {
   background-color: #0e1a58;
   color: #fff;
-  padding: 4px 6px;
+  padding: 6px 12px;
   border-radius: 5px;
 }
 
 .task-list-item button:hover {
   opacity: 0.9;
+}
+
+.fadeout {
+  display: none;
 }

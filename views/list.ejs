@@ -28,10 +28,34 @@
             <p>Task due: <%= posts[i].taskDue %></p>
           </div>
 
-          <button>Delete</button>
+          <button class="delete-btn" data-id="<%= posts[i]._id %>">
+            Delete
+          </button>
         </li>
         <% } %>
       </ul>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+    <script>
+      $('.delete-btn').click(function (e) {
+        let targetID = e.target.dataset.id;
+        let target = e.target.parentElement;
+
+        $.ajax({
+          method: 'DELETE',
+          url: '/delete',
+          data: { _id: targetID },
+        })
+          .done(function (res) {
+            console.log('AJAX successful');
+            target.classList.add('fadeout');
+          })
+          .fail(function (a, b, c) {
+            console.log(a, b, c);
+          });
+      });
+    </script>
   </body>
 </html>

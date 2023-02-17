@@ -49,7 +49,7 @@ app.get('/styles/write.css', function (req, res) {
 // -----------------------------------------
 
 app.post('/add', function (req, res) {
-  res.send('Data submitted');
+  // res.send('Data submitted');
   db.collection('counter').findOne(
     { name: 'postCount' },
     function (error, result) {
@@ -94,3 +94,12 @@ app.get('/styles/list.css', function (req, res) {
 });
 
 // -----------------------------------------
+
+app.delete('/delete', function (req, res) {
+  req.body._id = parseInt(req.body._id);
+  console.log(req.body);
+
+  db.collection('post').deleteOne(req.body);
+  console.log('deleted');
+  res.status(200).send({ message: 'successful' });
+});
