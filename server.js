@@ -77,6 +77,8 @@ app.post('/add', function (req, res) {
   );
 });
 
+// -----------------------------------------
+
 app.get('/views', function (req, res) {
   db.collection('post')
     .find()
@@ -85,3 +87,10 @@ app.get('/views', function (req, res) {
       res.render(__dirname + '/views/list.ejs', { posts: result });
     });
 });
+
+app.get('/styles/list.css', function (req, res) {
+  res.set('Content-Type', 'text/css');
+  res.sendFile(__dirname + '/styles/list.css');
+});
+
+// -----------------------------------------
