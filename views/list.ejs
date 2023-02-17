@@ -18,8 +18,12 @@
       </ul>
     </nav>
 
-    List fetched from the server
-    <h4>Todo List: <%= posts[1] %></h4>
-    <p>Task due: <%= posts %></p>
+    <div>List fetched from the server</div>
+
+    <% for (var i = 0; i < posts.length; i ++) { %>
+    <h4>Todo List: <%= posts[i].taskName %></h4>
+    <p>Task due: <%= posts[i].taskDue %></p>
+
+    <% } %>
   </body>
 </html>

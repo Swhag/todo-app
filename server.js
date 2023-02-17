@@ -6,7 +6,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
 
-var db;
+let db;
 MongoClient.connect(
   'mongodb+srv://admin:password1234@cluster0.iv5k38x.mongodb.net/?retryWrites=true&w=majority',
   function (error, client) {
@@ -50,13 +50,29 @@ app.get('/styles/write.css', function (req, res) {
 
 app.post('/add', function (req, res) {
   res.send('Data submitted');
-  console.log(req.body.taskName);
-  console.log(req.body.taskDue);
+  db.collection('counter').findOne(
+    { name: 'postCount' },
+    function (error, result) {
+      console.log(result.totalPost);
+      let totalPostCount = result.totalPost;
 
-  db.collection('post').insertOne(
-    { taskName: req.body.taskName, taskDue: req.body.taskDue },
-    function () {
-      console.log('data saved');
+      db.collection('post').insertOne(
+        {
+          _id: totalPostCount + 1,
+          taskName: req.body.taskName,
+          taskDue: req.body.taskDue,
+        },
+        function () {
+          console.log('data saved');
+          db.collection('counter').updateOne(
+            { name: 'postCount' },
+            { $inc: { totalPost: 1 } },
+            function (error, result) {
+              if (error) return console.log('error');
+            }
+          );
+        }
+      );
     }
   );
 });
@@ -64,8 +80,8 @@ app.post('/add', function (req, res) {
 app.get('/views', function (req, res) {
   db.collection('post')
     .find()
-    .toArray(function (error, res) {
-      console.log(res);
+    .toArray(function (error, result) {
+      console.log(result);
+      res.render(__dirname + '/views/list.ejs', { posts: result });
     });
-  res.render(__dirname + '/views/list.ejs', { posts: res });
 });
