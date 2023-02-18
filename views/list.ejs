@@ -7,17 +7,10 @@
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/list.css" />
 
-    <title>Document</title>
+    <title>New Todo-App</title>
   </head>
   <body>
-    <nav class="navbar">
-      <h4>Todo App</h4>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/write">Write</a></li>
-        <li><a href="/views">List</a></li>
-      </ul>
-    </nav>
+    <%- include('nav.html') %>
 
     <div class="task-list-container">
       <ul class="task-list">
@@ -28,9 +21,12 @@
             <p>Task due: <%= posts[i].taskDue %></p>
           </div>
 
-          <button class="delete-btn" data-id="<%= posts[i]._id %>">
-            Delete
-          </button>
+          <div>
+            <button class="edit-btn" data-id="<%= posts[i]._id %>">Edit</button>
+            <button class="delete-btn" data-id="<%= posts[i]._id %>">
+              Delete
+            </button>
+          </div>
         </li>
         <% } %>
       </ul>
@@ -40,21 +36,25 @@
 
     <script>
       $('.delete-btn').click(function (e) {
-        let targetID = e.target.dataset.id;
-        let target = e.target.parentElement;
+        e.preventDefault();
 
-        $.ajax({
-          method: 'DELETE',
-          url: '/delete',
-          data: { _id: targetID },
-        })
-          .done(function (res) {
-            console.log('AJAX successful');
-            target.classList.add('fadeout');
+        if (confirm('Are you sure you want to delete this item?')) {
+          let targetID = e.target.dataset.id;
+          let target = e.target.parentElement.parentElement;
+
+          $.ajax({
+            method: 'DELETE',
+            url: '/delete',
+            data: { _id: targetID },
           })
-          .fail(function (a, b, c) {
-            console.log(a, b, c);
-          });
+            .done(function (res) {
+              console.log('Entry deleted from the database');
+              target.classList.add('fadeout');
+            })
+            .fail(function (a, b, c) {
+              console.log(a, b, c);
+            });
+        }
       });
     </script>
   </body>

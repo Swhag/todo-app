@@ -6,19 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/style.css" />
     <link rel="stylesheet" href="../styles/write.css" />
-    <title>Document</title>
+
+    <title>New Todo-App</title>
   </head>
   <body>
-    <nav class="navbar">
-      <h4>Todo App</h4>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/write">Write</a></li>
-        <li><a href="/views">List</a></li>
-      </ul>
-    </nav>
+    <%- include('nav.html') %>
 
-    <div class="container">
+    <div class="write-container">
       <form class="write-form" action="/add" method="POST">
         <div class="task-input-field">
           <label for="task">Task</label>
@@ -46,6 +40,34 @@
 
         <button type="submit">Submit</button>
       </form>
+
+      <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+      <script>
+        $(document).ready(function () {
+          $('form.write-form').submit(function (e) {
+            e.preventDefault();
+
+            // get form data
+            var formData = $(this).serialize();
+
+            // submit form data with AJAX
+            $.ajax({
+              type: 'POST',
+              url: '/add',
+              data: formData,
+              success: function (data) {
+                alert('Data submitted');
+                $('form.write-form')[0].reset(); // clear form
+                window.location.href = '/write'; // redirect to /write page
+              },
+              error: function (error) {
+                console.error(error);
+              },
+            });
+          });
+        });
+      </script>
     </div>
   </body>
 </html>

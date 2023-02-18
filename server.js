@@ -20,36 +20,29 @@ MongoClient.connect(
   }
 );
 
-// app.use(express.static(__dirname));
+app.use(express.static('public'));
 // -----------------------------------------
+
+// app.get('/', function (req, res) {
+//   console.log('Handling GET request to /');
+//   res.set('Content-Type', 'text/html');
+//   res.sendFile(__dirname + '/index.html');
+// });
 
 app.get('/', function (req, res) {
   console.log('Handling GET request to /');
-  res.set('Content-Type', 'text/html');
-  res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/styles/style.css', function (req, res) {
-  res.set('Content-Type', 'text/css');
-  res.sendFile(__dirname + '/styles/style.css');
+  res.render('index.ejs');
 });
 
 // -----------------------------------------
 
 app.get('/write', function (req, res) {
-  res.set('Content-Type', 'text/html');
-  res.sendFile(__dirname + '/pages/write.html');
-});
-
-app.get('/styles/write.css', function (req, res) {
-  res.set('Content-Type', 'text/css');
-  res.sendFile(__dirname + '/styles/write.css');
+  res.render('write');
 });
 
 // -----------------------------------------
 
 app.post('/add', function (req, res) {
-  // res.send('Data submitted');
   db.collection('counter').findOne(
     { name: 'postCount' },
     function (error, result) {
@@ -69,6 +62,7 @@ app.post('/add', function (req, res) {
             { $inc: { totalPost: 1 } },
             function (error, result) {
               if (error) return console.log('error');
+              res.send("<script>alert('Data submitted')</script>");
             }
           );
         }
@@ -86,11 +80,6 @@ app.get('/views', function (req, res) {
       console.log(result);
       res.render(__dirname + '/views/list.ejs', { posts: result });
     });
-});
-
-app.get('/styles/list.css', function (req, res) {
-  res.set('Content-Type', 'text/css');
-  res.sendFile(__dirname + '/styles/list.css');
 });
 
 // -----------------------------------------

@@ -1,5 +1,13 @@
 /* ----------------------------- */
 
+.write-container {
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .write-form {
   width: 100%;
   max-width: 600px;
