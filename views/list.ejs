@@ -28,6 +28,39 @@
             </button>
           </div>
         </li>
+
+        <li class="task-list-edit">
+          <div class="edit-container">
+            <form class="edit-form" action="/add" method="POST">
+              <div class="task-input-field">
+                <label for="task">Task</label>
+                <input
+                  required
+                  type="text"
+                  placeholder=""
+                  name="taskName"
+                  id="task"
+                  autocomplete="off"
+                />
+              </div>
+
+              <div class="task-input-field">
+                <label for="due">Due Date</label>
+                <input
+                  required
+                  type="date"
+                  placeholder=""
+                  name="taskDue"
+                  id="due"
+                  autocomplete="off"
+                />
+              </div>
+
+              <button type="submit">Save</button>
+            </form>
+          </div>
+        </li>
+
         <% } %>
       </ul>
     </div>
@@ -55,6 +88,13 @@
               console.log(a, b, c);
             });
         }
+      });
+
+      $('.edit-btn').click(function (e) {
+        console.log('clicked');
+        let target = e.target.parentElement.parentElement.nextElementSibling;
+        console.log(target);
+        target.classList.add('show');
       });
     </script>
   </body>
