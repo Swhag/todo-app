@@ -23,12 +23,6 @@ MongoClient.connect(
 app.use(express.static('public'));
 // -----------------------------------------
 
-// app.get('/', function (req, res) {
-//   console.log('Handling GET request to /');
-//   res.set('Content-Type', 'text/html');
-//   res.sendFile(__dirname + '/index.html');
-// });
-
 app.get('/', function (req, res) {
   console.log('Handling GET request to /');
   res.render('index.ejs');
@@ -38,6 +32,12 @@ app.get('/', function (req, res) {
 
 app.get('/write', function (req, res) {
   res.render('write');
+});
+
+// -----------------------------------------
+
+app.get('/list', function (req, res) {
+  res.render('list');
 });
 
 // -----------------------------------------
@@ -91,4 +91,24 @@ app.delete('/delete', function (req, res) {
   db.collection('post').deleteOne(req.body);
   console.log('deleted');
   res.status(200).send({ message: 'successful' });
+});
+
+// -----------------------------------------
+
+app.put('/update', function (req, res) {
+  req.body._id = parseInt(req.body._id);
+  console.log(req.body);
+
+  db.collection('post').updateOne(
+    { _id: req.body._id },
+    { $set: req.body },
+    function (err, result) {
+      if (err) {
+        res.status(500).send({ message: 'error' });
+      } else {
+        console.log('updated');
+        res.status(200).send({ message: 'successful' });
+      }
+    }
+  );
 });
