@@ -112,3 +112,15 @@ app.put('/update', function (req, res) {
     }
   );
 });
+
+// -----------------------------------------
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+app.use(
+  session({ secret: 'secretcode', resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
