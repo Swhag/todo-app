@@ -3,6 +3,20 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// -----------------------------------------
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+
+app.use(
+  session({ secret: 'secretcode', resave: true, saveUninitialized: false })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// -----------------------------------------
+
 const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
 
@@ -29,15 +43,11 @@ app.get('/', function (req, res) {
 });
 
 // -----------------------------------------
+// Add task
+// -----------------------------------------
 
 app.get('/write', function (req, res) {
   res.render('write');
-});
-
-// -----------------------------------------
-
-app.get('/list', function (req, res) {
-  res.render('list');
 });
 
 // -----------------------------------------
@@ -69,6 +79,14 @@ app.post('/add', function (req, res) {
       );
     }
   );
+});
+
+// -----------------------------------------
+// view / delete / edit task list
+// -----------------------------------------
+
+app.get('/list', function (req, res) {
+  res.render('list');
 });
 
 // -----------------------------------------
@@ -115,12 +133,8 @@ app.put('/update', function (req, res) {
 
 // -----------------------------------------
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const session = require('express-session');
+app.get('/login', function (req, res) {
+  res.render('login');
+});
 
-app.use(
-  session({ secret: 'secretcode', resave: true, saveUninitialized: false })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+// -----------------------------------------

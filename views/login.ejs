@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="stylesheet" href="../styles/write.css" />
+
+    <title>New Todo-App</title>
+  </head>
+  <body>
+    <%- include('nav.html') %>
+
+    <div class="write-container">
+      <form class="write-form" action="/login" method="POST">
+        <div class="task-input-field">
+          <label for="task">Login ID</label>
+          <input
+            type="text"
+            placeholder=""
+            name="id"
+            id="id"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="task-input-field">
+          <label for="due">Password</label>
+          <input
+            type="password"
+            placeholder=""
+            name="pw"
+            id="pw"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <button type="submit">Log in</button>
+      </form>
+
+      <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+      <script></script>
+    </div>
+  </body>
+</html>
