@@ -132,9 +132,19 @@ app.put('/update', function (req, res) {
 });
 
 // -----------------------------------------
+// login authenticate
+// -----------------------------------------
 
 app.get('/login', function (req, res) {
   res.render('login');
 });
 
 // -----------------------------------------
+
+app.post(
+  '/login',
+  passport.authenticate('local', { failureRedirect: '/fail' }),
+  function (req, res) {
+    응답.redirect('/');
+  }
+);
